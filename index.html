@@ -1,352 +1,796 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Shree Ganesh Ji Live</title>
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
     }
 
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      overflow: hidden;
-      background: #111;
-      color: white;
+    html,
+    body{
+      width:100%;
+      height:100%;
     }
 
-    .hero {
-      width: 100vw;
-      height: 100vh;
-      position: relative;
+    body{
+      font-family:Arial, Helvetica, sans-serif;
+      background:#111;
+      color:white;
+      overflow:hidden;
+    }
+
+
+    /* =========================
+       MAIN BACKGROUND
+    ========================== */
+
+    .hero{
+
+      width:100vw;
+      height:100vh;
+
+      position:relative;
+
       background:
         linear-gradient(
           to bottom,
-          rgba(0,0,0,0.12),
-          rgba(0,0,0,0.38)
+          rgba(0,0,0,.10),
+          rgba(0,0,0,.42)
         ),
-        url("ganpati.jpg.png");
+        url("./ganpati.jpg.png");
 
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
+      background-size:cover;
+      background-position:center;
+      background-repeat:no-repeat;
+
     }
 
-    .overlay {
-      position: absolute;
-      inset: 0;
+
+    .overlay{
+
+      position:absolute;
+      inset:0;
+
       background:
         radial-gradient(
           circle at center,
-          transparent 20%,
-          rgba(0,0,0,0.25) 100%
+          transparent 25%,
+          rgba(0,0,0,.35) 100%
         );
+
+      pointer-events:none;
+
     }
 
-    .time {
-      position: absolute;
-      top: 28px;
-      left: 34px;
-      font-size: 14px;
-      font-weight: 600;
-      letter-spacing: 1px;
-      z-index: 5;
+
+    /* =========================
+       CLOCK
+    ========================== */
+
+    .time{
+
+      position:absolute;
+
+      top:30px;
+      left:32px;
+
+      font-size:14px;
+      font-weight:700;
+
+      letter-spacing:1px;
+
+      z-index:5;
+
+      text-shadow:0 2px 8px rgba(0,0,0,.6);
+
     }
 
-    .listeners {
-      position: absolute;
-      top: 28px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(255,255,255,0.15);
-      backdrop-filter: blur(12px);
-      padding: 10px 18px;
-      border-radius: 30px;
-      font-size: 13px;
-      z-index: 5;
-      border: 1px solid rgba(255,255,255,0.15);
+
+    /* =========================
+       TOP STATUS
+    ========================== */
+
+    .listeners{
+
+      position:absolute;
+
+      top:28px;
+      left:50%;
+
+      transform:translateX(-50%);
+
+      padding:10px 18px;
+
+      border-radius:30px;
+
+      background:rgba(30,30,30,.40);
+
+      border:1px solid rgba(255,255,255,.20);
+
+      backdrop-filter:blur(15px);
+      -webkit-backdrop-filter:blur(15px);
+
+      font-size:13px;
+
+      z-index:5;
+
+      white-space:nowrap;
+
     }
 
-    .green-dot {
-      width: 8px;
-      height: 8px;
-      background: #42e575;
-      border-radius: 50%;
-      display: inline-block;
-      margin-right: 8px;
-      box-shadow: 0 0 10px #42e575;
+
+    .green-dot{
+
+      width:8px;
+      height:8px;
+
+      border-radius:50%;
+
+      display:inline-block;
+
+      margin-right:8px;
+
+      background:#42e575;
+
+      box-shadow:
+        0 0 8px #42e575,
+        0 0 15px rgba(66,229,117,.5);
+
     }
 
-    .content {
-      position: absolute;
-      left: 9%;
-      top: 50%;
-      transform: translateY(-50%);
-      z-index: 4;
-      max-width: 520px;
+
+    /* =========================
+       LEFT TEXT
+    ========================== */
+
+    .content{
+
+      position:absolute;
+
+      left:8.5%;
+      top:50%;
+
+      transform:translateY(-50%);
+
+      z-index:4;
+
+      max-width:520px;
+
     }
 
-    .small-text {
-      text-transform: uppercase;
-      font-size: 11px;
-      letter-spacing: 4px;
-      margin-bottom: 15px;
-      opacity: 0.85;
+
+    .small-text{
+
+      font-size:11px;
+
+      text-transform:uppercase;
+
+      letter-spacing:4px;
+
+      margin-bottom:16px;
+
+      font-weight:600;
+
     }
 
-    .content h1 {
-      font-size: clamp(54px, 7vw, 105px);
-      line-height: 0.9;
-      font-weight: 800;
-      text-shadow: 0 8px 35px rgba(0,0,0,0.4);
+
+    .content h1{
+
+      font-size:clamp(58px,7vw,110px);
+
+      line-height:.88;
+
+      font-weight:800;
+
+      text-shadow:
+        0 6px 30px rgba(0,0,0,.40);
+
     }
 
-    .content h2 {
-      font-size: 25px;
-      margin-top: 18px;
-      font-weight: 400;
-      font-family: Georgia, serif;
-      font-style: italic;
+
+    .content h2{
+
+      margin-top:20px;
+
+      font-family:Georgia,serif;
+
+      font-size:25px;
+
+      font-weight:400;
+
+      font-style:italic;
+
+      text-shadow:0 3px 12px rgba(0,0,0,.60);
+
     }
 
-    .content p {
-      margin-top: 12px;
-      font-size: 14px;
-      opacity: 0.85;
-      letter-spacing: 1px;
+
+    .content p{
+
+      margin-top:10px;
+
+      font-size:14px;
+
+      letter-spacing:1px;
+
     }
 
-    .player {
-      position: absolute;
-      bottom: 35px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: min(650px, 90%);
-      min-height: 105px;
 
-      background: rgba(75, 40, 20, 0.55);
-      border: 1px solid rgba(255,255,255,0.20);
-      backdrop-filter: blur(20px);
+    /* =========================
+       AUDIO PLAYER
+    ========================== */
 
-      border-radius: 60px;
-      padding: 16px 25px;
-      z-index: 10;
+    .player{
 
-      display: flex;
-      align-items: center;
-      gap: 18px;
+      position:absolute;
 
-      box-shadow: 0 20px 50px rgba(0,0,0,0.30);
+      left:50%;
+      bottom:35px;
+
+      transform:translateX(-50%);
+
+      width:min(680px,92%);
+
+      min-height:105px;
+
+      padding:15px 25px;
+
+      border-radius:60px;
+
+      display:flex;
+
+      align-items:center;
+
+      gap:18px;
+
+      z-index:10;
+
+      background:rgba(86,42,18,.72);
+
+      border:1px solid rgba(255,255,255,.20);
+
+      backdrop-filter:blur(22px);
+      -webkit-backdrop-filter:blur(22px);
+
+      box-shadow:
+        0 20px 60px rgba(0,0,0,.35);
+
     }
 
-    .cover {
-      width: 72px;
-      height: 72px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 3px solid rgba(255,255,255,0.7);
-      animation: spin 12s linear infinite;
-      animation-play-state: paused;
+
+    /* Album circle */
+
+    .cover{
+
+      width:72px;
+      height:72px;
+
+      flex-shrink:0;
+
+      border-radius:50%;
+
+      object-fit:cover;
+
+      border:3px solid rgba(255,255,255,.75);
+
+      animation:spin 12s linear infinite;
+
+      animation-play-state:paused;
+
     }
 
-    .cover.playing {
-      animation-play-state: running;
+
+    .cover.playing{
+
+      animation-play-state:running;
+
     }
 
-    @keyframes spin {
-      from {
-        transform: rotate(0deg);
+
+    @keyframes spin{
+
+      from{
+        transform:rotate(0deg);
       }
-      to {
-        transform: rotate(360deg);
+
+      to{
+        transform:rotate(360deg);
       }
+
     }
 
-    .song-info {
-      flex: 1;
-      min-width: 0;
+
+    /* Song information */
+
+    .song-info{
+
+      flex:1;
+
+      min-width:0;
+
     }
 
-    .song-info h3 {
-      font-size: 15px;
-      margin-bottom: 6px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+
+    .song-info h3{
+
+      margin-bottom:5px;
+
+      font-size:15px;
+
+      white-space:nowrap;
+
+      overflow:hidden;
+
+      text-overflow:ellipsis;
+
     }
 
-    .song-info p {
-      font-size: 12px;
-      opacity: 0.75;
-      margin-bottom: 10px;
+
+    .song-info p{
+
+      margin-bottom:10px;
+
+      font-size:12px;
+
+      opacity:.78;
+
     }
 
-    .progress-container {
-      width: 100%;
-      height: 4px;
-      background: rgba(255,255,255,0.25);
-      border-radius: 10px;
-      cursor: pointer;
-      overflow: hidden;
+
+    /* Progress bar */
+
+    .progress-container{
+
+      width:100%;
+      height:5px;
+
+      border-radius:10px;
+
+      background:rgba(255,255,255,.25);
+
+      overflow:hidden;
+
+      cursor:pointer;
+
     }
 
-    .progress {
-      height: 100%;
-      width: 0%;
-      background: white;
-      border-radius: 10px;
+
+    .progress{
+
+      width:0%;
+      height:100%;
+
+      border-radius:10px;
+
+      background:white;
+
+      transition:width .1s linear;
+
     }
 
-    .time-row {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 5px;
-      font-size: 10px;
-      opacity: 0.7;
+
+    .time-row{
+
+      display:flex;
+
+      justify-content:space-between;
+
+      margin-top:6px;
+
+      font-size:10px;
+
+      opacity:.75;
+
     }
 
-    .controls {
-      display: flex;
-      align-items: center;
-      gap: 12px;
+
+    /* Controls */
+
+    .controls{
+
+      display:flex;
+
+      align-items:center;
+
+      gap:11px;
+
     }
 
-    button {
-      border: none;
-      background: transparent;
-      color: white;
-      cursor: pointer;
-      font-size: 18px;
+
+    button{
+
+      border:0;
+
+      outline:0;
+
+      color:white;
+
+      background:transparent;
+
+      cursor:pointer;
+
+      font-size:18px;
+
     }
 
-    .play-btn {
-      width: 55px;
-      height: 55px;
-      background: white;
-      color: #2b1b12;
-      border-radius: 50%;
-      font-size: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: 0.25s;
+
+    .small-control{
+
+      width:30px;
+      height:30px;
+
+      display:flex;
+
+      align-items:center;
+
+      justify-content:center;
+
+      border-radius:50%;
+
     }
 
-    .play-btn:hover {
-      transform: scale(1.08);
+
+    .small-control:hover{
+
+      background:rgba(255,255,255,.12);
+
     }
 
-    .bottom-text {
-      position: absolute;
-      bottom: 15px;
-      width: 100%;
-      text-align: center;
-      font-size: 10px;
-      letter-spacing: 2px;
-      opacity: 0.6;
-      z-index: 4;
+
+    .play-btn{
+
+      width:56px;
+      height:56px;
+
+      border-radius:50%;
+
+      display:flex;
+
+      align-items:center;
+
+      justify-content:center;
+
+      background:white;
+
+      color:#2b1b12;
+
+      font-size:20px;
+
+      transition:.2s ease;
+
     }
 
-    .enter-screen {
-      position: fixed;
-      inset: 0;
+
+    .play-btn:hover{
+
+      transform:scale(1.07);
+
+    }
+
+
+    /* =========================
+       ERROR MESSAGE
+    ========================== */
+
+    .audio-message{
+
+      position:absolute;
+
+      left:50%;
+      bottom:155px;
+
+      transform:translateX(-50%);
+
+      z-index:15;
+
+      padding:8px 15px;
+
+      border-radius:20px;
+
+      background:rgba(0,0,0,.65);
+
+      font-size:12px;
+
+      display:none;
+
+    }
+
+
+    /* =========================
+       BOTTOM TEXT
+    ========================== */
+
+    .bottom-text{
+
+      position:absolute;
+
+      bottom:14px;
+
+      width:100%;
+
+      text-align:center;
+
+      font-size:9px;
+
+      letter-spacing:3px;
+
+      opacity:.65;
+
+      z-index:4;
+
+    }
+
+
+    /* =========================
+       ENTER SCREEN
+    ========================== */
+
+    .enter-screen{
+
+      position:fixed;
+
+      inset:0;
+
+      z-index:999;
+
+      display:flex;
+
+      align-items:center;
+
+      justify-content:center;
+
+      flex-direction:column;
+
+      text-align:center;
+
       background:
         linear-gradient(
-          rgba(20,10,5,0.4),
-          rgba(20,10,5,0.75)
+          rgba(20,10,5,.30),
+          rgba(20,10,5,.65)
         ),
-        url("ganpati.jpg.png");
+        url("./ganpati.jpg.png");
 
-      background-size: cover;
-      background-position: center;
+      background-size:cover;
+      background-position:center;
 
-      z-index: 999;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
+      transition:
+        opacity .8s ease,
+        visibility .8s ease;
 
-      transition: 0.8s ease;
     }
 
-    .enter-screen h2 {
-      font-size: 42px;
-      text-align: center;
-      margin-bottom: 10px;
+
+    .enter-screen::after{
+
+      content:"";
+
+      position:absolute;
+
+      inset:0;
+
+      background:rgba(0,0,0,.15);
+
+      z-index:-1;
+
     }
 
-    .enter-screen p {
-      opacity: 0.8;
-      margin-bottom: 25px;
+
+    .enter-screen h2{
+
+      font-size:clamp(34px,5vw,55px);
+
+      margin-bottom:12px;
+
+      text-shadow:
+        0 5px 20px rgba(0,0,0,.65);
+
     }
 
-    .enter-button {
-      padding: 15px 28px;
-      border-radius: 40px;
-      background: rgba(255,255,255,0.95);
-      color: #44250f;
-      font-size: 16px;
-      font-weight: bold;
-      border: none;
+
+    .enter-screen p{
+
+      margin-bottom:28px;
+
+      font-size:15px;
+
+      opacity:.9;
+
     }
 
-    .hide {
-      opacity: 0;
-      pointer-events: none;
+
+    .enter-button{
+
+      padding:16px 30px;
+
+      border-radius:40px;
+
+      background:white;
+
+      color:#48250f;
+
+      font-size:16px;
+
+      font-weight:700;
+
+      box-shadow:
+        0 10px 30px rgba(0,0,0,.25);
+
     }
 
-    @media (max-width: 700px) {
 
-      .content {
-        left: 7%;
-        top: 44%;
-      }
+    .enter-button:hover{
 
-      .content h1 {
-        font-size: 57px;
-      }
+      transform:scale(1.04);
 
-      .content h2 {
-        font-size: 20px;
-      }
-
-      .listeners {
-        font-size: 11px;
-      }
-
-      .player {
-        bottom: 25px;
-        border-radius: 35px;
-        padding: 14px;
-      }
-
-      .cover {
-        width: 55px;
-        height: 55px;
-      }
-
-      .controls {
-        gap: 8px;
-      }
-
-      .play-btn {
-        width: 46px;
-        height: 46px;
-      }
     }
+
+
+    .enter-screen.hide{
+
+      opacity:0;
+
+      visibility:hidden;
+
+      pointer-events:none;
+
+    }
+
+
+    /* =========================
+       MOBILE
+    ========================== */
+
+    @media(max-width:700px){
+
+      .hero{
+
+        background-position:center;
+
+      }
+
+
+      .time{
+
+        top:20px;
+        left:20px;
+
+        font-size:12px;
+
+      }
+
+
+      .listeners{
+
+        top:18px;
+
+        font-size:10px;
+
+        padding:8px 12px;
+
+      }
+
+
+      .content{
+
+        left:7%;
+
+        top:43%;
+
+      }
+
+
+      .small-text{
+
+        font-size:9px;
+
+        letter-spacing:2px;
+
+      }
+
+
+      .content h1{
+
+        font-size:58px;
+
+      }
+
+
+      .content h2{
+
+        font-size:20px;
+
+      }
+
+
+      .player{
+
+        bottom:25px;
+
+        min-height:90px;
+
+        padding:12px 14px;
+
+        border-radius:35px;
+
+        gap:10px;
+
+      }
+
+
+      .cover{
+
+        width:55px;
+        height:55px;
+
+      }
+
+
+      .song-info h3{
+
+        font-size:13px;
+
+      }
+
+
+      .song-info p{
+
+        font-size:10px;
+
+      }
+
+
+      .controls{
+
+        gap:5px;
+
+      }
+
+
+      .small-control{
+
+        display:none;
+
+      }
+
+
+      .play-btn{
+
+        width:47px;
+        height:47px;
+
+      }
+
+
+      .bottom-text{
+
+        display:none;
+
+      }
+
+    }
+
   </style>
 </head>
 
 
 <body>
 
+
+  <!-- ENTER SCREEN -->
+
   <div class="enter-screen" id="enterScreen">
 
-    <h2>🙏 Shree Ganesh Ji Live</h2>
+    <h2>
+      🙏 Shree Ganesh Ji Live
+    </h2>
 
     <p>
       Pause. Breathe. Feel Bappa's presence.
@@ -354,7 +798,7 @@
 
     <button
       class="enter-button"
-      onclick="enterWebsite()"
+      id="enterButton"
     >
       Enter Divine Experience
     </button>
@@ -362,17 +806,25 @@
   </div>
 
 
+  <!-- WEBSITE -->
+
   <section class="hero">
 
+
     <div class="overlay"></div>
+
+
+    <!-- CLOCK -->
 
     <div
       class="time"
       id="clock"
     >
-      09:40 AM
+      10:30 AM
     </div>
 
+
+    <!-- TOP STATUS -->
 
     <div class="listeners">
 
@@ -383,11 +835,14 @@
     </div>
 
 
+    <!-- LEFT CONTENT -->
+
     <div class="content">
 
       <div class="small-text">
         Peace • Devotion • Blessings
       </div>
+
 
       <h1>
         गणपति
@@ -395,9 +850,11 @@
         बप्पा
       </h1>
 
+
       <h2>
         Shree Ganesh Ji Live
       </h2>
+
 
       <p>
         ॥ गणपति बाप्पा मोरया ॥
@@ -406,21 +863,36 @@
     </div>
 
 
+    <!-- AUDIO ERROR -->
+
+    <div
+      class="audio-message"
+      id="audioMessage"
+    >
+      Tap Play to start the divine melody 🎵
+    </div>
+
+
+    <!-- PLAYER -->
+
     <div class="player">
 
+
       <img
-        src="ganpati.jpg.png"
+        src="./ganpati.jpg.png"
         class="cover"
         id="cover"
-        alt="Ganpati"
+        alt="Ganpati Bappa"
       >
 
 
       <div class="song-info">
 
+
         <h3>
           Ganesh Aarti
         </h3>
+
 
         <p>
           Peaceful devotional melodies
@@ -452,208 +924,462 @@
 
         </div>
 
+
       </div>
 
 
+      <!-- CONTROLS -->
+
       <div class="controls">
 
-        <button onclick="restartSong()">
+
+        <button
+          class="small-control"
+          id="restartButton"
+          title="Restart"
+        >
           ↺
         </button>
+
 
         <button
           class="play-btn"
           id="playButton"
-          onclick="togglePlay()"
+          title="Play / Pause"
         >
           ▶
         </button>
 
-        <button onclick="forwardSong()">
+
+        <button
+          class="small-control"
+          id="forwardButton"
+          title="Forward 10 seconds"
+        >
           ↻
         </button>
 
+
       </div>
+
 
     </div>
 
 
     <div class="bottom-text">
+
       SHREE GANESH JI • LIVE DIVINE EXPERIENCE
+
     </div>
+
 
   </section>
 
 
+  <!-- AUDIO -->
+
   <audio
     id="audio"
-    src="ganesh-aarti.mp3"
-  ></audio>
+    preload="metadata"
+  >
+
+    <source
+      src="./ganesh-aarti.mp3"
+      type="audio/mpeg"
+    >
+
+    Your browser does not support audio.
+
+  </audio>
 
 
   <script>
 
+
+    /* =========================
+       ELEMENTS
+    ========================== */
+
     const audio =
       document.getElementById("audio");
+
 
     const playButton =
       document.getElementById("playButton");
 
+
+    const enterButton =
+      document.getElementById("enterButton");
+
+
+    const enterScreen =
+      document.getElementById("enterScreen");
+
+
+    const restartButton =
+      document.getElementById("restartButton");
+
+
+    const forwardButton =
+      document.getElementById("forwardButton");
+
+
     const progress =
       document.getElementById("progress");
+
 
     const progressContainer =
       document.getElementById("progressContainer");
 
-    const currentTimeEl =
+
+    const currentTimeElement =
       document.getElementById("currentTime");
 
-    const durationEl =
+
+    const durationElement =
       document.getElementById("duration");
+
 
     const cover =
       document.getElementById("cover");
 
 
-    function enterWebsite() {
-
-      document
-        .getElementById("enterScreen")
-        .classList.add("hide");
-
-      audio.play();
-
-      playButton.innerHTML = "❚❚";
-
-      cover.classList.add("playing");
-    }
+    const audioMessage =
+      document.getElementById("audioMessage");
 
 
-    function togglePlay() {
+    /* =========================
+       PLAY SONG
+    ========================== */
 
-      if (audio.paused) {
+    async function playSong(){
 
-        audio.play();
+      try{
 
-        playButton.innerHTML = "❚❚";
+        await audio.play();
+
+        playButton.textContent = "❚❚";
 
         cover.classList.add("playing");
 
-      } else {
+        audioMessage.style.display = "none";
 
-        audio.pause();
+      }
 
-        playButton.innerHTML = "▶";
+      catch(error){
+
+        console.log(
+          "Audio play error:",
+          error
+        );
+
+        playButton.textContent = "▶";
 
         cover.classList.remove("playing");
 
+        audioMessage.style.display = "block";
+
       }
-    }
-
-
-    function restartSong() {
-
-      audio.currentTime = 0;
-
-      audio.play();
-
-      playButton.innerHTML = "❚❚";
-
-      cover.classList.add("playing");
 
     }
 
 
-    function forwardSong() {
+    /* =========================
+       PAUSE SONG
+    ========================== */
 
-      audio.currentTime =
-        Math.min(
-          audio.duration,
-          audio.currentTime + 10
+    function pauseSong(){
+
+      audio.pause();
+
+      playButton.textContent = "▶";
+
+      cover.classList.remove("playing");
+
+    }
+
+
+    /* =========================
+       ENTER WEBSITE
+    ========================== */
+
+    enterButton.addEventListener(
+      "click",
+      async function(){
+
+        enterScreen.classList.add("hide");
+
+        await playSong();
+
+      }
+    );
+
+
+    /* =========================
+       PLAY / PAUSE BUTTON
+    ========================== */
+
+    playButton.addEventListener(
+      "click",
+      function(){
+
+        if(audio.paused){
+
+          playSong();
+
+        }
+
+        else{
+
+          pauseSong();
+
+        }
+
+      }
+    );
+
+
+    /* =========================
+       RESTART BUTTON
+    ========================== */
+
+    restartButton.addEventListener(
+      "click",
+      function(){
+
+        audio.currentTime = 0;
+
+        playSong();
+
+      }
+    );
+
+
+    /* =========================
+       FORWARD 10 SEC
+    ========================== */
+
+    forwardButton.addEventListener(
+      "click",
+      function(){
+
+        if(
+          Number.isFinite(audio.duration)
+        ){
+
+          audio.currentTime =
+            Math.min(
+              audio.currentTime + 10,
+              audio.duration
+            );
+
+        }
+
+      }
+    );
+
+
+    /* =========================
+       TIME FORMAT
+    ========================== */
+
+    function formatTime(seconds){
+
+      if(
+        !Number.isFinite(seconds)
+      ){
+
+        return "0:00";
+
+      }
+
+
+      const minutes =
+        Math.floor(
+          seconds / 60
         );
 
-    }
 
+      const remainingSeconds =
+        Math.floor(
+          seconds % 60
+        );
 
-    function formatTime(seconds) {
-
-      if (isNaN(seconds)) {
-        return "0:00";
-      }
-
-      const mins =
-        Math.floor(seconds / 60);
-
-      const secs =
-        Math.floor(seconds % 60);
 
       return (
-        mins +
+        minutes +
         ":" +
-        (secs < 10 ? "0" : "") +
-        secs
+        String(
+          remainingSeconds
+        ).padStart(2,"0")
       );
 
     }
 
 
+    /* =========================
+       AUDIO METADATA
+    ========================== */
+
     audio.addEventListener(
-      "timeupdate",
-      () => {
+      "loadedmetadata",
+      function(){
 
-        const percentage =
-          (audio.currentTime / audio.duration) * 100;
-
-        progress.style.width =
-          percentage + "%";
-
-        currentTimeEl.textContent =
-          formatTime(audio.currentTime);
-
-        durationEl.textContent =
-          formatTime(audio.duration);
+        durationElement.textContent =
+          formatTime(
+            audio.duration
+          );
 
       }
     );
 
+
+    /* =========================
+       AUDIO PROGRESS
+    ========================== */
+
+    audio.addEventListener(
+      "timeupdate",
+      function(){
+
+        currentTimeElement.textContent =
+          formatTime(
+            audio.currentTime
+          );
+
+
+        if(
+          Number.isFinite(audio.duration) &&
+          audio.duration > 0
+        ){
+
+          const percentage =
+            (
+              audio.currentTime /
+              audio.duration
+            ) * 100;
+
+
+          progress.style.width =
+            percentage + "%";
+
+        }
+
+      }
+    );
+
+
+    /* =========================
+       CLICK PROGRESS BAR
+    ========================== */
 
     progressContainer.addEventListener(
       "click",
-      (e) => {
+      function(event){
 
-        const width =
-          progressContainer.clientWidth;
+        if(
+          !Number.isFinite(audio.duration)
+        ){
 
-        const clickX =
-          e.offsetX;
+          return;
+
+        }
+
+
+        const rect =
+          progressContainer
+            .getBoundingClientRect();
+
+
+        const clickPosition =
+          event.clientX -
+          rect.left;
+
+
+        const percentage =
+          clickPosition /
+          rect.width;
+
 
         audio.currentTime =
-          (clickX / width) * audio.duration;
+          percentage *
+          audio.duration;
 
       }
     );
 
 
-    function updateClock() {
+    /* =========================
+       SONG ENDED
+    ========================== */
+
+    audio.addEventListener(
+      "ended",
+      function(){
+
+        playButton.textContent = "▶";
+
+        cover.classList.remove("playing");
+
+        progress.style.width = "0%";
+
+        audio.currentTime = 0;
+
+      }
+    );
+
+
+    /* =========================
+       AUDIO ERROR
+    ========================== */
+
+    audio.addEventListener(
+      "error",
+      function(){
+
+        console.log(
+          "Audio loading failed."
+        );
+
+        audioMessage.textContent =
+          "Audio could not load. Please refresh the page.";
+
+        audioMessage.style.display =
+          "block";
+
+      }
+    );
+
+
+    /* =========================
+       CLOCK
+    ========================== */
+
+    function updateClock(){
 
       const now =
         new Date();
 
+
       let hours =
         now.getHours();
+
 
       const minutes =
         String(
           now.getMinutes()
-        ).padStart(2, "0");
+        ).padStart(2,"0");
 
-      const ampm =
+
+      const period =
         hours >= 12
           ? "PM"
           : "AM";
 
+
       hours =
         hours % 12 || 12;
+
 
       document
         .getElementById("clock")
@@ -662,19 +1388,22 @@
           ":" +
           minutes +
           " " +
-          ampm;
+          period;
 
     }
 
 
     updateClock();
 
+
     setInterval(
       updateClock,
       1000
     );
 
+
   </script>
+
 
 </body>
 </html>
