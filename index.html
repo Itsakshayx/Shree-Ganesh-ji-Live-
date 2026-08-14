@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shree Ganesh Ji Live</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      overflow: hidden;
+      background: #111;
+      color: white;
+    }
+
+    .hero {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      background:
+        linear-gradient(
+          to bottom,
+          rgba(0,0,0,0.12),
+          rgba(0,0,0,0.38)
+        ),
+        url("ganpati.jpg");
+
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(
+          circle at center,
+          transparent 20%,
+          rgba(0,0,0,0.25) 100%
+        );
+    }
+
+    .time {
+      position: absolute;
+      top: 28px;
+      left: 34px;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      z-index: 5;
+    }
+
+    .listeners {
+      position: absolute;
+      top: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(12px);
+      padding: 10px 18px;
+      border-radius: 30px;
+      font-size: 13px;
+      z-index: 5;
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .green-dot {
+      width: 8px;
+      height: 8px;
+      background: #42e575;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 8px;
+      box-shadow: 0 0 10px #42e575;
+    }
+
+    .content {
+      position: absolute;
+      left: 9%;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 4;
+      max-width: 520px;
+    }
+
+    .small-text {
+      text-transform: uppercase;
+      font-size: 11px;
+      letter-spacing: 4px;
+      margin-bottom: 15px;
+      opacity: 0.85;
+    }
+
+    .content h1 {
+      font-size: clamp(54px, 7vw, 105px);
+      line-height: 0.9;
+      font-weight: 800;
+      text-shadow: 0 8px 35px rgba(0,0,0,0.4);
+    }
+
+    .content h2 {
+      font-size: 25px;
+      margin-top: 18px;
+      font-weight: 400;
+      font-family: Georgia, serif;
+      font-style: italic;
+    }
+
+    .content p {
+      margin-top: 12px;
+      font-size: 14px;
+      opacity: 0.85;
+      letter-spacing: 1px;
+    }
+
+    .player {
+      position: absolute;
+      bottom: 35px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(650px, 90%);
+      min-height: 105px;
+
+      background: rgba(75, 40, 20, 0.55);
+      border: 1px solid rgba(255,255,255,0.20);
+      backdrop-filter: blur(20px);
+
+      border-radius: 60px;
+      padding: 16px 25px;
+      z-index: 10;
+
+      display: flex;
+      align-items: center;
+      gap: 18px;
+
+      box-shadow: 0 20px 50px rgba(0,0,0,0.30);
+    }
+
+    .cover {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid rgba(255,255,255,0.7);
+      animation: spin 12s linear infinite;
+      animation-play-state: paused;
+    }
+
+    .cover.playing {
+      animation-play-state: running;
+    }
+
+    @keyframes spin {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .song-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .song-info h3 {
+      font-size: 15px;
+      margin-bottom: 6px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .song-info p {
+      font-size: 12px;
+      opacity: 0.75;
+      margin-bottom: 10px;
+    }
+
+    .progress-container {
+      width: 100%;
+      height: 4px;
+      background: rgba(255,255,255,0.25);
+      border-radius: 10px;
+      cursor: pointer;
+      overflow: hidden;
+    }
+
+    .progress {
+      height: 100%;
+      width: 0%;
+      background: white;
+      border-radius: 10px;
+    }
+
+    .time-row {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 5px;
+      font-size: 10px;
+      opacity: 0.7;
+    }
+
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    button {
+      border: none;
+      background: transparent;
+      color: white;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    .play-btn {
+      width: 55px;
+      height: 55px;
+      background: white;
+      color: #2b1b12;
+      border-radius: 50%;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.25s;
+    }
+
+    .play-btn:hover {
+      transform: scale(1.08);
+    }
+
+    .bottom-text {
+      position: absolute;
+      bottom: 15px;
+      width: 100%;
+      text-align: center;
+      font-size: 10px;
+      letter-spacing: 2px;
+      opacity: 0.6;
+      z-index: 4;
+    }
+
+    .enter-screen {
+      position: fixed;
+      inset: 0;
+      background:
+        linear-gradient(
+          rgba(20,10,5,0.4),
+          rgba(20,10,5,0.75)
+        ),
+        url("ganpati.jpg");
+
+      background-size: cover;
+      background-position: center;
+
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+
+      transition: 0.8s ease;
+    }
+
+    .enter-screen h2 {
+      font-size: 42px;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .enter-screen p {
+      opacity: 0.8;
+      margin-bottom: 25px;
+    }
+
+    .enter-button {
+      padding: 15px 28px;
+      border-radius: 40px;
+      background: rgba(255,255,255,0.95);
+      color: #44250f;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+    }
+
+    .hide {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    @media (max-width: 700px) {
+
+      .content {
+        left: 7%;
+        top: 44%;
+      }
+
+      .content h1 {
+        font-size: 57px;
+      }
+
+      .content h2 {
+        font-size: 20px;
+      }
+
+      .listeners {
+        font-size: 11px;
+      }
+
+      .player {
+        bottom: 25px;
+        border-radius: 35px;
+        padding: 14px;
+      }
+
+      .cover {
+        width: 55px;
+        height: 55px;
+      }
+
+      .controls {
+        gap: 8px;
+      }
+
+      .play-btn {
+        width: 46px;
+        height: 46px;
+      }
+    }
+  </style>
+</head>
+
+
+<body>
+
+  <div class="enter-screen" id="enterScreen">
+
+    <h2>🙏 Shree Ganesh Ji Live</h2>
+
+    <p>
+      Pause. Breathe. Feel Bappa's presence.
+    </p>
+
+    <button
+      class="enter-button"
+      onclick="enterWebsite()"
+    >
+      Enter Divine Experience
+    </button>
+
+  </div>
+
+
+  <section class="hero">
+
+    <div class="overlay"></div>
+
+    <div
+      class="time"
+      id="clock"
+    >
+      09:40 AM
+    </div>
+
+
+    <div class="listeners">
+
+      <span class="green-dot"></span>
+
+      Divine melodies playing
+
+    </div>
+
+
+    <div class="content">
+
+      <div class="small-text">
+        Peace • Devotion • Blessings
+      </div>
+
+      <h1>
+        गणपति
+        <br>
+        बप्पा
+      </h1>
+
+      <h2>
+        Shree Ganesh Ji Live
+      </h2>
+
+      <p>
+        ॥ गणपति बाप्पा मोरया ॥
+      </p>
+
+    </div>
+
+
+    <div class="player">
+
+      <img
+        src="ganpati.jpg"
+        class="cover"
+        id="cover"
+        alt="Ganpati"
+      >
+
+
+      <div class="song-info">
+
+        <h3>
+          Ganesh Aarti
+        </h3>
+
+        <p>
+          Peaceful devotional melodies
+        </p>
+
+
+        <div
+          class="progress-container"
+          id="progressContainer"
+        >
+
+          <div
+            class="progress"
+            id="progress"
+          ></div>
+
+        </div>
+
+
+        <div class="time-row">
+
+          <span id="currentTime">
+            0:00
+          </span>
+
+          <span id="duration">
+            0:00
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="controls">
+
+        <button onclick="restartSong()">
+          ↺
+        </button>
+
+        <button
+          class="play-btn"
+          id="playButton"
+          onclick="togglePlay()"
+        >
+          ▶
+        </button>
+
+        <button onclick="forwardSong()">
+          ↻
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <div class="bottom-text">
+      SHREE GANESH JI • LIVE DIVINE EXPERIENCE
+    </div>
+
+  </section>
+
+
+  <audio
+    id="audio"
+    src="ganesh-aarti.mp3"
+  ></audio>
+
+
+  <script>
+
+    const audio =
+      document.getElementById("audio");
+
+    const playButton =
+      document.getElementById("playButton");
+
+    const progress =
+      document.getElementById("progress");
+
+    const progressContainer =
+      document.getElementById("progressContainer");
+
+    const currentTimeEl =
+      document.getElementById("currentTime");
+
+    const durationEl =
+      document.getElementById("duration");
+
+    const cover =
+      document.getElementById("cover");
+
+
+    function enterWebsite() {
+
+      document
+        .getElementById("enterScreen")
+        .classList.add("hide");
+
+      audio.play();
+
+      playButton.innerHTML = "❚❚";
+
+      cover.classList.add("playing");
+    }
+
+
+    function togglePlay() {
+
+      if (audio.paused) {
+
+        audio.play();
+
+        playButton.innerHTML = "❚❚";
+
+        cover.classList.add("playing");
+
+      } else {
+
+        audio.pause();
+
+        playButton.innerHTML = "▶";
+
+        cover.classList.remove("playing");
+
+      }
+    }
+
+
+    function restartSong() {
+
+      audio.currentTime = 0;
+
+      audio.play();
+
+      playButton.innerHTML = "❚❚";
+
+      cover.classList.add("playing");
+
+    }
+
+
+    function forwardSong() {
+
+      audio.currentTime =
+        Math.min(
+          audio.duration,
+          audio.currentTime + 10
+        );
+
+    }
+
+
+    function formatTime(seconds) {
+
+      if (isNaN(seconds)) {
+        return "0:00";
+      }
+
+      const mins =
+        Math.floor(seconds / 60);
+
+      const secs =
+        Math.floor(seconds % 60);
+
+      return (
+        mins +
+        ":" +
+        (secs < 10 ? "0" : "") +
+        secs
+      );
+
+    }
+
+
+    audio.addEventListener(
+      "timeupdate",
+      () => {
+
+        const percentage =
+          (audio.currentTime / audio.duration) * 100;
+
+        progress.style.width =
+          percentage + "%";
+
+        currentTimeEl.textContent =
+          formatTime(audio.currentTime);
+
+        durationEl.textContent =
+          formatTime(audio.duration);
+
+      }
+    );
+
+
+    progressContainer.addEventListener(
+      "click",
+      (e) => {
+
+        const width =
+          progressContainer.clientWidth;
+
+        const clickX =
+          e.offsetX;
+
+        audio.currentTime =
+          (clickX / width) * audio.duration;
+
+      }
+    );
+
+
+    function updateClock() {
+
+      const now =
+        new Date();
+
+      let hours =
+        now.getHours();
+
+      const minutes =
+        String(
+          now.getMinutes()
+        ).padStart(2, "0");
+
+      const ampm =
+        hours >= 12
+          ? "PM"
+          : "AM";
+
+      hours =
+        hours % 12 || 12;
+
+      document
+        .getElementById("clock")
+        .textContent =
+          hours +
+          ":" +
+          minutes +
+          " " +
+          ampm;
+
+    }
+
+
+    updateClock();
+
+    setInterval(
+      updateClock,
+      1000
+    );
+
+  </script>
+
+</body>
+</html>
